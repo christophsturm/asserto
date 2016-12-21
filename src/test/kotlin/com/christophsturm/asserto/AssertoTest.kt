@@ -18,7 +18,9 @@ class AssertoTest {
     @Test fun `can assert that an exception is thrown`() {
         assertThat({throw RuntimeException("blah")}, {e->e.message!!.contains("blah")})
     }
-    @Test @Ignore("this is going to be a bit of work") fun `creates useful error message for equals`() {
+    @Test
+    @Ignore("this is going to be a bit of work")
+    fun `creates useful error message for equals`() {
         val userId = "123"
         try {
             assertThat(userId == "12")
