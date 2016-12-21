@@ -1,5 +1,9 @@
 package com.christophsturm.asserto
 
+import junit.framework.AssertionFailedError
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.fail
+import org.junit.Ignore
 import org.junit.Test
 
 class AssertoTest {
@@ -8,15 +12,20 @@ class AssertoTest {
         assertThat(userId.contains("23"))
         assertThat("23" in userId)
         val sameUserId = userId
+        assertThat(userId === sameUserId)
         assertThat(userId == sameUserId)
     }
     @Test fun `can assert that an exception is thrown`() {
-        assertThat({throw RuntimeException()}, {e->e.message!!.contains("blah")})
+        assertThat({throw RuntimeException("blah")}, {e->e.message!!.contains("blah")})
     }
-}
-private fun assertThat(condition: Boolean) {
-}
-
-private fun assertThat(block: () -> Nothing, condition: (e:Throwable) -> Boolean) {
+    @Test @Ignore("this is going to be a bit of work") fun `creates useful error message for equals`() {
+        val userId = "123"
+        try {
+            assertThat(userId == "12")
+            fail()
+        } catch (e:AssertionFailedError) {
+            assertEquals("""expected "userId" to be equal to "12" but was "123" """, e.message)
+        }
+    }
 }
 
