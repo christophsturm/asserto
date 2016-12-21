@@ -10,6 +10,7 @@ class FilePeekerTest {
 
         assertEquals(9, fileInfo.lineNumber)
         assertTrue(fileInfo.sourceFileName, fileInfo.sourceFileName.endsWith("src/test/kotlin/com/christophsturm/asserto/FilePeekerTest.kt"))
+        assertEquals("val fileInfo = FilePeeker.getFileInfo()", fileInfo.line.trim())
     }
 }
 
