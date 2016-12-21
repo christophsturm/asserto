@@ -36,7 +36,7 @@ class AssertoTest {
             assertThat(userId == "12")
             fail()
         } catch (e:AssertionFailedError) {
-            assertEquals("""assertThat(userId == "12") failed""", e.message)
+            assertEquals("""userId == "12" was not true""", e.message)
         }
     }
 }
