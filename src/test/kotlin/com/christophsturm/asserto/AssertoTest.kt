@@ -29,5 +29,15 @@ class AssertoTest {
             assertEquals("""expected "userId" to be equal to "12" but was "123" """, e.message)
         }
     }
+    @Test
+    fun `creates an almost useful error message`() {
+        val userId = "123"
+        try {
+            assertThat(userId == "12")
+            fail()
+        } catch (e:AssertionFailedError) {
+            assertEquals("""assertThat(userId == "12") failed""", e.message)
+        }
+    }
 }
 
