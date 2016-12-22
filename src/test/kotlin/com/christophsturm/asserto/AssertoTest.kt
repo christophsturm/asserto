@@ -32,6 +32,24 @@ class AssertoTest {
     }
 
     @Test
+    fun `works with methods returning boolean`() {
+        fun checkMessage(block: () -> Unit, message: String) {
+            try {
+                block()
+                fail()
+            } catch (e: AssertionFailedError) {
+                assertEquals(message, e.message)
+            }
+        }
+
+        val superName = "supergirl"
+        checkMessage({ expect(that(superName).endsWith("man")) }, """expected that "superName" endsWith "man" but it was "supergirl"""")
+        checkMessage({ expect(that(superName).contains("atman")) }, """expected that "superName" contains "atman" but it was "supergirl"""")
+        checkMessage({ expect(that(superName).isEmpty()) }, """expected that "superName" isEmpty but it was "supergirl"""")
+    }
+
+
+    @Test
     fun `creates an almost useful error message as fallback`() {
         val userId = "123"
         try {

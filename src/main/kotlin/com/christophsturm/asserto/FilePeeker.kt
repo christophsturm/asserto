@@ -10,9 +10,13 @@ object FilePeeker {
         val e = RuntimeException()
         val entry = e.stackTrace[offset]
         val className = entry.className
-        val clazz = javaClass.classLoader.loadClass(className)!!
+        val indexOfDollar = className.indexOf('$')
+        val realClassName = if (indexOfDollar != -1) {
+            className.substring(0, indexOfDollar)
+        } else className
+        val clazz = javaClass.classLoader.loadClass(realClassName)!!
         val classFile = File(clazz.protectionDomain.codeSource.location.path)
-        val potentialFilename = classFile.absolutePath.replace("build/classes/test", "src/test/kotlin").plus("/" + className.replace(".", "/")).plus(".kt")
+        val potentialFilename = classFile.absolutePath.replace("build/classes/test", "src/test/kotlin").plus("/" + realClassName.replace(".", "/")).plus(".kt")
         val line = FileReader(potentialFilename).useLines {
             it.drop(entry.lineNumber-1).first()
         }
