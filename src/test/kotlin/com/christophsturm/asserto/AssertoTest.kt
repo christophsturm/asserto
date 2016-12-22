@@ -3,7 +3,6 @@ package com.christophsturm.asserto
 import junit.framework.AssertionFailedError
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.fail
-import org.junit.Ignore
 import org.junit.Test
 
 class AssertoTest {
@@ -31,7 +30,8 @@ class AssertoTest {
             assertEquals("""expected that "userId" equals "12" but it was "123"""", e.message)
         }
     }
-    @Test @Ignore
+
+    @Test
     fun `creates an almost useful error message as fallback`() {
         val userId = "123"
         try {

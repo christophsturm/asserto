@@ -1,7 +1,6 @@
 package com.christophsturm.asserto
 
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileReader
 
 data class FileInfo(val lineNumber: Int, val sourceFileName: String, val line: String)
