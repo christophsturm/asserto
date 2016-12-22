@@ -21,7 +21,6 @@ class AssertoTest {
         expect({throw RuntimeException("blah")}, { e->e.message!!.contains("blah")})
     }
     @Test
-    @Ignore("this is going to be a bit of work")
     fun `creates useful error message for equals`() {
         val userId = "123"
         try {
@@ -29,11 +28,11 @@ class AssertoTest {
             expect(that(userId).equals("12"))
             fail()
         } catch (e:AssertionFailedError) {
-            assertEquals("""expected "userId" to be equal to "12" but was "123" """, e.message)
+            assertEquals("""expected that "userId" equals "12" but it was "123"""", e.message)
         }
     }
-    @Test
-    fun `creates an almost useful error message`() {
+    @Test @Ignore
+    fun `creates an almost useful error message as fallback`() {
         val userId = "123"
         try {
             expect(userId == "12")
