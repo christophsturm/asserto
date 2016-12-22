@@ -25,7 +25,8 @@ class AssertoTest {
     fun `creates useful error message for equals`() {
         val userId = "123"
         try {
-            expect(that(userId) == "12")
+            @Suppress("ReplaceCallWithComparison")
+            expect(that(userId).equals("12"))
             fail()
         } catch (e:AssertionFailedError) {
             assertEquals("""expected "userId" to be equal to "12" but was "123" """, e.message)
