@@ -16,9 +16,9 @@ class FilePeekerTest {
     @Test fun `can get FileInfo for a block`() {
         val fileInfo = { FilePeeker.getFileInfo() }()
 
-        assertEquals(16, fileInfo.lineNumber)
+        assertEquals(17, fileInfo.lineNumber)
         assertTrue(fileInfo.sourceFileName, fileInfo.sourceFileName.endsWith("src/test/kotlin/com/christophsturm/asserto/FilePeekerTest.kt"))
-        assertEquals("val fileInfo = {FilePeeker.getFileInfo()}()", fileInfo.line.trim())
+        assertEquals("val fileInfo = { FilePeeker.getFileInfo() }()", fileInfo.line.trim())
     }
 }
 
