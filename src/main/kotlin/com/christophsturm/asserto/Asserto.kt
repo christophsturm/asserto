@@ -10,6 +10,10 @@ fun assertThat(condition: Boolean) {
     throw AssertionFailedError("$condition was not true")
 }
 
+fun <T> capture(captured: T): T {
+    return captured
+}
+
 fun assertThat(block: () -> Nothing, condition: (e:Throwable) -> Boolean) {
 }
 
