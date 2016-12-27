@@ -1,6 +1,5 @@
 package com.christophsturm.asserto
 
-import junit.framework.AssertionFailedError
 
 object Asserto {
     val threadLocal = ThreadLocal<Any>()
@@ -18,7 +17,7 @@ fun expect(condition: Boolean) {
     } catch(e: RuntimeException) {
         "$conditionString was not true"
     }
-    throw AssertionFailedError(message)
+    throw AssertionError(message)
 
 }
 
