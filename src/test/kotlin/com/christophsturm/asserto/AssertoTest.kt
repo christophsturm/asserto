@@ -1,6 +1,5 @@
 package com.christophsturm.asserto
 
-import junit.framework.AssertionFailedError
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.fail
 import org.junit.Test
@@ -26,7 +25,7 @@ class AssertoTest {
             @Suppress("ReplaceCallWithComparison")
             expect(that(userId).equals("12"))
             fail()
-        } catch (e:AssertionFailedError) {
+        } catch (e: AssertionError) {
             assertEquals("""expected that "userId" equals "12" but it was "123"""", e.message)
         }
     }
@@ -37,7 +36,7 @@ class AssertoTest {
             try {
                 block()
                 fail()
-            } catch (e: AssertionFailedError) {
+            } catch (e: AssertionError) {
                 assertEquals(message, e.message)
             }
         }
@@ -55,7 +54,7 @@ class AssertoTest {
         try {
             expect(userId == "12")
             fail()
-        } catch (e:AssertionFailedError) {
+        } catch (e: AssertionError) {
             assertEquals("""userId == "12" was not true""", e.message)
         }
     }
