@@ -13,7 +13,7 @@ class ParsedAssertInstruction(condition: String) {
             val methodNameEnd = condition.indexOf('(', methodNameStart)
             methodName = condition.substring(methodNameStart, methodNameEnd).trim()
             val parameterStart = methodNameEnd + 1
-            val parameterEnd = condition.indexOf(')', parameterStart)
+            val parameterEnd = findMatchingClosingBracket(condition, parameterStart)
             methodParameter = condition.substring(parameterStart, parameterEnd)
         } else {
             throw RuntimeException("could not parse $condition")
