@@ -13,7 +13,7 @@ fun expect(condition: Boolean) {
     val message = try {
         val parsed: ParsedAssertInstruction = ParsedAssertInstruction(conditionString)
         val parameterWithSpace = if (parsed.methodParameter.isEmpty()) "" else " ${parsed.methodParameter}"
-        "expected that \"${parsed.variableName}\" ${parsed.methodName}$parameterWithSpace but it was \"${Asserto.threadLocal.get()}\""
+        "expected that \"${parsed.subject}\" ${parsed.methodName}$parameterWithSpace but it was \"${Asserto.threadLocal.get()}\""
     } catch(e: RuntimeException) {
         "$conditionString was not true"
     }

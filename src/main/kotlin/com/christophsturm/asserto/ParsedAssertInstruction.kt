@@ -1,13 +1,13 @@
 package com.christophsturm.asserto
 
 class ParsedAssertInstruction(condition: String) {
-    val variableName: String
+    val subject: String
     val methodName: String
     val methodParameter: String
     init {
         val variableNameStart = condition.indexOf("that(") + 5
         val variableNameEnd = condition.indexOf(')', variableNameStart)
-        variableName = condition.substring(variableNameStart, variableNameEnd).trim()
+        subject = condition.substring(variableNameStart, variableNameEnd).trim()
         if (condition[variableNameEnd+1] == '.') {
             val methodNameStart = variableNameEnd+2
             val methodNameEnd = condition.indexOf('(', methodNameStart)
