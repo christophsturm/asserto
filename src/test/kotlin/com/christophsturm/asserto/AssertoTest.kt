@@ -16,6 +16,7 @@ class AssertoTest {
 
 
     @Test fun `can assert that an exception is thrown`() {
+        // this is not yet implemented and just an example how exception assertion should/could/will look like
         expect({throw RuntimeException("blah")}, { e->e.message!!.contains("blah")})
     }
     @Test
@@ -23,10 +24,10 @@ class AssertoTest {
         val userId = "123"
         try {
             @Suppress("ReplaceCallWithComparison")
-            expect(that(userId).equals("12"))
+            expect(that(userId.toUpperCase()).equals("12"))
             fail()
         } catch (e: AssertionError) {
-            assertEquals("""expected that "userId" equals "12" but it was "123"""", e.message)
+            assertEquals("""expected that "userId.toUpperCase()" equals "12" but it was "123"""", e.message)
         }
     }
 

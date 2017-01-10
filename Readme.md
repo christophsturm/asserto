@@ -13,6 +13,9 @@ will produce this error message:
 
         expected that "userId" equals "12" but it was "123"
         
+you can also call methods on the test subject and on the value you compare with
+        
+        expect(that(userId.toLowerCase()).equals("12".toUpperCase()))
 
 missing:
 * capturing non constants to assert with. 
