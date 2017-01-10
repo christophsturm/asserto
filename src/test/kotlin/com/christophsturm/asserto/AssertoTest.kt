@@ -50,6 +50,17 @@ class AssertoTest {
 
 
     @Test
+    fun `creates an error message that shows the actual value if captured`() {
+        val userId = "123"
+        try {
+            expect(that(userId) == "12")
+            fail()
+        } catch (e: AssertionError) {
+            assertEquals("""expected that "userId" == "12" but it was "123"""", e.message)
+        }
+    }
+
+    @Test
     fun `creates an almost useful error message as fallback`() {
         val userId = "123"
         try {
@@ -59,5 +70,7 @@ class AssertoTest {
             assertEquals("""userId == "12" was not true""", e.message)
         }
     }
+
+
 }
 
