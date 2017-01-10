@@ -17,10 +17,17 @@ you can also call methods on the test subject and on the value you compare with
         
         expect(that(userId.toLowerCase()).equals("12".toUpperCase()))
 
+if you use an opratator instead of a method call, it also works:
+
+        expect(that(userId.toLowerCase()) == "12".toUpperCase())
+
+will output 
+
+    expected that "userId.toLowerCase" == "12" but it was "123"
+    
 missing:
 * capturing non constants to assert with. 
 `expect(that(userId).equals(otherUserId))` will output `expected that "userId" equals otherUserId but it was "123"`
 * asserting on thrown exceptions.
-* support for operators like `==` and `===`
 * special handling of equals to give a diff output that integrates well with IDEA
 * more robust source code lookup. (but WFM)

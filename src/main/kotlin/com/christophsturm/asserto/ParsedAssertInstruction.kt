@@ -5,18 +5,23 @@ class ParsedAssertInstruction(condition: String) {
     val methodName: String
     val methodParameter: String
     init {
-        val variableNameStart = condition.indexOf("that(") + 5
-        val variableNameEnd = findMatchingClosingBracket(condition, variableNameStart)
-        subject = condition.substring(variableNameStart, variableNameEnd).trim()
-        if (condition[variableNameEnd+1] == '.') {
-            val methodNameStart = variableNameEnd+2
+        val subjectStart = condition.indexOf("that(") + 5
+        val subjectEnd = findMatchingClosingBracket(condition, subjectStart)
+        subject = condition.substring(subjectStart, subjectEnd).trim()
+        if (condition[subjectEnd + 1] == '.') {
+            val methodNameStart = subjectEnd + 2
             val methodNameEnd = condition.indexOf('(', methodNameStart)
             methodName = condition.substring(methodNameStart, methodNameEnd).trim()
             val parameterStart = methodNameEnd + 1
             val parameterEnd = findMatchingClosingBracket(condition, parameterStart)
             methodParameter = condition.substring(parameterStart, parameterEnd)
         } else {
-            throw RuntimeException("could not parse $condition")
+            try {
+                methodName = condition.substring(subjectEnd + 1).trim()
+                methodParameter = ""
+            } catch (e: Exception) {
+                throw RuntimeException("could not parse $condition")
+            }
         }
 
     }
