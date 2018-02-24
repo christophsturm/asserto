@@ -1,13 +1,16 @@
+//noinspection GroovyAssignabilityCheck
 group 'com.christophsturm'
+//noinspection GroovyAssignabilityCheck
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.0.6'
+    ext.kotlin_version = '1.2.21'
 
     repositories {
         mavenCentral()
     }
     dependencies {
+        //noinspection DifferentKotlinGradleVersion
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
