@@ -16,7 +16,7 @@ object FilePeeker {
         } else className
         val clazz = javaClass.classLoader.loadClass(realClassName)!!
         val classFileAbsolutePath = File(clazz.protectionDomain.codeSource.location.path).absolutePath
-        val buildDir = if (classFileAbsolutePath.contains("/out/")) "out/test/classes" else "build/classes/test"
+        val buildDir = if (classFileAbsolutePath.contains("/out/")) "out/test/classes" else if (classFileAbsolutePath.contains("build/classes/java")) "build/classes/java/test" else "build/classes/test"
         val baseName = classFileAbsolutePath.replace(buildDir, "src/test/kotlin").plus("/" + realClassName.replace(".", "/"))
         val sourceFileName = if (File(baseName.plus(".kt")).exists()) baseName.plus(".kt") else baseName.plus(".java").replace("src/test/kotlin", "src/test/java")
         val line = FileReader(sourceFileName).useLines {
