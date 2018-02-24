@@ -16,10 +16,11 @@ object FilePeeker {
         } else className
         val clazz = javaClass.classLoader.loadClass(realClassName)!!
         val classFile = File(clazz.protectionDomain.codeSource.location.path)
-        val potentialFilename = classFile.absolutePath.replace("build/classes/test", "src/test/kotlin").plus("/" + realClassName.replace(".", "/")).plus(".kt")
-        val line = FileReader(potentialFilename).useLines {
+        val baseName = classFile.absolutePath.replace("build/classes/test", "src/test/kotlin").plus("/" + realClassName.replace(".", "/"))
+        val sourceFileName = if (File(baseName.plus(".kt")).exists()) baseName.plus(".kt") else baseName.plus(".java").replace("src/test/kotlin", "src/test/java")
+        val line = FileReader(sourceFileName).useLines {
             it.drop(entry.lineNumber-1).first()
         }
-        return FileInfo(entry.lineNumber, sourceFileName = potentialFilename, line = line)
+        return FileInfo(entry.lineNumber, sourceFileName = sourceFileName, line = line)
     }
 }

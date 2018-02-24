@@ -1,19 +1,18 @@
+@file:JvmName("Asserto")
 package com.christophsturm.asserto
 
 
-object Asserto {
-    val threadLocal = ThreadLocal<Any>()
-}
+val subjectValueThreadLocal = ThreadLocal<Any>()
 fun expect(condition: Boolean) {
-    if (condition === true)
+    if (condition)
         return
     val assertLine = FilePeeker.getFileInfo(2).line.trim()
     val conditionString = assertLine.substring(assertLine.indexOf('(') + 1, assertLine.lastIndexOf(')'))
 
     val message = try {
-        val parsed: ParsedAssertInstruction = ParsedAssertInstruction(conditionString)
+        val parsed = ParsedAssertInstruction(conditionString)
         val parameterWithSpace = if (parsed.methodParameter.isEmpty()) "" else " ${parsed.methodParameter}"
-        "expected that \"${parsed.subject}\" ${parsed.methodName}$parameterWithSpace but it was \"${Asserto.threadLocal.get()}\""
+        "expected that \"${parsed.subject}\" ${parsed.methodName}$parameterWithSpace but it was \"${subjectValueThreadLocal.get()}\""
     } catch(e: RuntimeException) {
         "$conditionString was not true"
     }
@@ -22,7 +21,7 @@ fun expect(condition: Boolean) {
 }
 
 fun <T> that(captured: T): T {
-    Asserto.threadLocal.set(captured)
+    subjectValueThreadLocal.set(captured)
     return captured
 }
 
