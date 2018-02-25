@@ -6,7 +6,7 @@ val subjectValueThreadLocal = ThreadLocal<Any>()
 fun expect(condition: Boolean) {
     if (condition)
         return
-    val assertLine = FilePeeker.getFileInfo(2).line.trim()
+    val assertLine = FilePeeker.getCallerFileInfo(2).line.trim()
     val conditionString = assertLine.substring(assertLine.indexOf('(') + 1, assertLine.lastIndexOf(')'))
 
     val message = try {
