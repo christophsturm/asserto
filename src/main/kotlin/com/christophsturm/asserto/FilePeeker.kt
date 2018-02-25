@@ -16,7 +16,9 @@ object FilePeeker {
                 if (classFileAbsolutePath.contains("/out/"))
                     "out/test/classes" // running inside IDEA
                 else if (classFileAbsolutePath.contains("build/classes/java"))
-                    "build/classes/java/test" // gradle 4.x
+                    "build/classes/java/test" // gradle 4.x java source
+                else if (classFileAbsolutePath.contains("build/classes/kotlin"))
+                    "build/classes/kotlin/test" // gradle 4.x kotlin sources
                 else
                     "build/classes/test" // older gradle
 
