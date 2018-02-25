@@ -28,6 +28,9 @@ will output
 
     expected that "userId.toLowerCase" == "12" but it was "123"
     
+### building    
+Import into IDEA as gradle project or run via `./gradlew test`
+
 missing:
 * capturing non constants to assert with. 
 `expect(that(userId).equals(otherUserId))` will output `expected that "userId" equals otherUserId but it was "123"`
