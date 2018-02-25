@@ -8,7 +8,9 @@ class ParsedAssertInstruction(condition: String) {
         val subjectStart = condition.indexOf("that(") + 5
         val subjectEnd = findMatchingClosingBracket(condition, subjectStart)
         subject = condition.substring(subjectStart, subjectEnd).trim()
-        if (condition[subjectEnd + 1] == '.') {
+
+        val isMethodCall = condition[subjectEnd + 1] == '.'
+        if (isMethodCall) {
             val methodNameStart = subjectEnd + 2
             val methodNameEnd = condition.indexOf('(', methodNameStart)
             methodName = condition.substring(methodNameStart, methodNameEnd).trim()
