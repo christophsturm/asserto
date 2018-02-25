@@ -36,3 +36,4 @@ pitest {
     threads = Runtime.getRuntime().availableProcessors()
     outputFormats = ['XML', 'HTML']
 }
+check.dependsOn 'pitest'
