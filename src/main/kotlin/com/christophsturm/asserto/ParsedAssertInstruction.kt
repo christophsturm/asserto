@@ -4,6 +4,7 @@ class ParsedAssertInstruction(condition: String) {
     val subject: String
     val methodName: String
     val methodParameter: String
+
     init {
         val subjectStart = condition.indexOf("that(") + 5
         val subjectEnd = findMatchingClosingBracket(condition, subjectStart)
