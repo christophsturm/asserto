@@ -7,11 +7,10 @@ plugins {
 group = "com.christophsturm"
 version = "1.0-SNAPSHOT"
 
-val junit5Version = "5.2.0"
-val log4j2Version = "2.11.1"
-val jacksonVersion = "2.9.6"
+val junit5Version = "5.3.0"
+val junitPlatformVersion = "1.3.0"
+
 repositories {
-    maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     mavenCentral()
     jcenter()
 }
@@ -19,6 +18,9 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit5Version")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit5Version")
+
 }
 
 configure<JavaPluginConvention> {
@@ -29,7 +31,9 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        includeEngines("junit-jupiter")
+    }
     testLogging {
         events("passed", "skipped", "failed")
     }
