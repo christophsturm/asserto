@@ -1,15 +1,16 @@
 package com.christophsturm.asserto;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static com.christophsturm.asserto.Asserto.expect;
 import static com.christophsturm.asserto.Asserto.that;
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class AssertoJavaTest {
+class AssertoJavaTest {
     @Test
-    public void worksFromJava() {
+    void worksFromJava() {
         String userId = "123";
         expect(that(userId).contains("23"));
         try {

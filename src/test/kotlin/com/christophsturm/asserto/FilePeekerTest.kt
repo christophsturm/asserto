@@ -1,18 +1,18 @@
 package com.christophsturm.asserto
 
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+
 
 class FilePeekerTest {
     @Test
     fun `can get FileInfo`() {
         val fileInfo = FilePeeker.getCallerFileInfo()
 
-        assertEquals(10, fileInfo.lineNumber)
         assertTrue(
-            fileInfo.sourceFileName,
-            fileInfo.sourceFileName.endsWith("src/test/kotlin/com/christophsturm/asserto/FilePeekerTest.kt")
+            fileInfo.sourceFileName.endsWith("src/test/kotlin/com/christophsturm/asserto/FilePeekerTest.kt"),
+            fileInfo.sourceFileName
         )
         assertEquals("val fileInfo = FilePeeker.getCallerFileInfo()", fileInfo.line.trim())
     }
@@ -21,10 +21,9 @@ class FilePeekerTest {
     fun `can get FileInfo for a block`() {
         val fileInfo = { FilePeeker.getCallerFileInfo() }()
 
-        assertEquals(22, fileInfo.lineNumber)
         assertTrue(
-            fileInfo.sourceFileName,
-            fileInfo.sourceFileName.endsWith("src/test/kotlin/com/christophsturm/asserto/FilePeekerTest.kt")
+            fileInfo.sourceFileName.endsWith("src/test/kotlin/com/christophsturm/asserto/FilePeekerTest.kt"),
+            fileInfo.sourceFileName
         )
         assertEquals("val fileInfo = { FilePeeker.getCallerFileInfo() }()", fileInfo.line.trim())
     }
