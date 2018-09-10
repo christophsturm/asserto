@@ -5,7 +5,8 @@ import junit.framework.TestCase.fail
 import org.junit.Test
 
 class AssertoTest {
-    @Test fun `works with methods that return boolean`() {
+    @Test
+    fun `works with methods that return boolean`() {
         val userId = "123"
         expect(that(userId).contains("23"))
         expect(that("23") in userId)
@@ -15,16 +16,17 @@ class AssertoTest {
     }
 
 
-    @Test fun `can assert that an exception is thrown`() {
+    @Test
+    fun `can assert that an exception is thrown`() {
         // this is not yet implemented and just an example how exception assertion should/could/will look like
-        expect({throw RuntimeException("blah")}, { e->e.message!!.contains("blah")})
+        expect({ throw RuntimeException("blah") }, { e -> e.message!!.contains("blah") })
     }
+
     @Test
     fun `creates useful error message for equals`() {
         val userId = "123"
         try {
-            @Suppress("ReplaceCallWithComparison")
-            expect(that(userId.toUpperCase()).equals("12"))
+            @Suppress("ReplaceCallWithComparison") expect(that(userId.toUpperCase()).equals("12"))
             fail()
         } catch (e: AssertionError) {
             assertEquals("""expected that "userId.toUpperCase()" equals "12" but it was "123"""", e.message)
@@ -43,9 +45,17 @@ class AssertoTest {
         }
 
         val superName = "supergirl"
-        checkMessage({ expect(that(superName).endsWith("man")) }, """expected that "superName" endsWith "man" but it was "supergirl"""")
-        checkMessage({ expect(that(superName).contains("atman")) }, """expected that "superName" contains "atman" but it was "supergirl"""")
-        checkMessage({ expect(that(superName).isEmpty()) }, """expected that "superName" isEmpty but it was "supergirl"""")
+        checkMessage(
+            { expect(that(superName).endsWith("man")) },
+            """expected that "superName" endsWith "man" but it was "supergirl""""
+        )
+        checkMessage(
+            { expect(that(superName).contains("atman")) },
+            """expected that "superName" contains "atman" but it was "supergirl""""
+        )
+        checkMessage(
+            { expect(that(superName).isEmpty()) }, """expected that "superName" isEmpty but it was "supergirl""""
+        )
     }
 
 

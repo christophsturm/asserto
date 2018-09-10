@@ -12,18 +12,17 @@ object FilePeeker {
         val clazz = javaClass.classLoader.loadClass(className)!!
         val classFileAbsolutePath = File(clazz.protectionDomain.codeSource.location.path).absolutePath
 
-        val buildDir =
-                if (classFileAbsolutePath.contains("/out/"))
-                    "out/test/classes" // running inside IDEA
-                else if (classFileAbsolutePath.contains("build/classes/java"))
-                    "build/classes/java/test" // gradle 4.x java source
-                else if (classFileAbsolutePath.contains("build/classes/kotlin"))
-                    "build/classes/kotlin/test" // gradle 4.x kotlin sources
-                else
-                    "build/classes/test" // older gradle
+        val buildDir = if (classFileAbsolutePath.contains("/out/")) "out/test/classes" // running inside IDEA
+        else if (classFileAbsolutePath.contains("build/classes/java")) "build/classes/java/test" // gradle 4.x java source
+        else if (classFileAbsolutePath.contains("build/classes/kotlin")) "build/classes/kotlin/test" // gradle 4.x kotlin sources
+        else "build/classes/test" // older gradle
 
-        val sourceFileWithoutExtension = classFileAbsolutePath.replace(buildDir, "src/test/kotlin").plus("/" + className.replace(".", "/"))
-        val sourceFileName = if (File(sourceFileWithoutExtension.plus(".kt")).exists()) sourceFileWithoutExtension.plus(".kt") else sourceFileWithoutExtension.plus(".java").replace("src/test/kotlin", "src/test/java")
+        val sourceFileWithoutExtension =
+            classFileAbsolutePath.replace(buildDir, "src/test/kotlin").plus("/" + className.replace(".", "/"))
+        val sourceFileName =
+            if (File(sourceFileWithoutExtension.plus(".kt")).exists()) sourceFileWithoutExtension.plus(".kt") else sourceFileWithoutExtension.plus(
+                ".java"
+            ).replace("src/test/kotlin", "src/test/java")
 
         val callerLine = FileReader(sourceFileName).useLines {
             it.drop(callerStackTraceElement.lineNumber - 1).first()
