@@ -1,8 +1,9 @@
 package com.christophsturm.asserto
 
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.fail
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
+
 
 class AssertoTest {
     @Test
@@ -27,7 +28,7 @@ class AssertoTest {
         val userId = "123"
         try {
             @Suppress("ReplaceCallWithComparison") expect(that(userId.toUpperCase()).equals("12"))
-            fail()
+            fail("should throw")
         } catch (e: AssertionError) {
             assertEquals("""expected that "userId.toUpperCase()" equals "12" but it was "123"""", e.message)
         }
@@ -38,7 +39,7 @@ class AssertoTest {
         fun checkMessage(block: () -> Unit, message: String) {
             try {
                 block()
-                fail()
+                fail("should throw")
             } catch (e: AssertionError) {
                 assertEquals(message, e.message)
             }
@@ -64,7 +65,7 @@ class AssertoTest {
         val userId = "123"
         try {
             expect(that(userId) == "12")
-            fail()
+            fail("should throw")
         } catch (e: AssertionError) {
             assertEquals("""expected that "userId" == "12" but it was "123"""", e.message)
         }
@@ -75,7 +76,7 @@ class AssertoTest {
         val userId = "123"
         try {
             expect(userId == "12")
-            fail()
+            fail("should throw")
         } catch (e: AssertionError) {
             assertEquals("""userId == "12" was not true""", e.message)
         }
